@@ -4,8 +4,13 @@ package
 	import flash.display.Stage3D;
 	import flash.display.StageScaleMode;
 	import flash.display3D.Context3D;
+	import flash.display3D.Context3DVertexBufferFormat;
+	import flash.display3D.IndexBuffer3D;
+	import flash.display3D.VertexBuffer3D;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
+	import ShaderLib.BaseShader;
+	import ShaderLib.Simple2DShader;
 	
 	/**
 	 * ...
@@ -19,6 +24,7 @@ package
 		//------------------------------ private member ------------------------------------
 		
 		private var m_context3d:Context3D = null;
+		private var m_indexBuf:IndexBuffer3D = null;
 		
 		//------------------------------ public function -----------------------------------
 		
@@ -50,7 +56,19 @@ package
 			
 			m_context3d.configureBackBuffer( 480, 320, 2 );
 			
-			//[unfinished]
+			//set the shader
+			var shader:BaseShader = new Simple2DShader( m_context3d );
+			m_context3d.setProgram( shader.SHADERS );
+			
+			//set the vertex buffer
+			var vertexBuf:VertexBuffer3D = m_context3d.createVertexBuffer( 4, 6 );
+			vertexBuf.uploadFromVector( Vector.<Number>( [1,1,0,0,0,1, 1,-1,0,0,1,0, -1,-1,0,0,1,1, -1,1,0,1,0,0] ), 0, 4 );
+			m_context3d.setVertexBufferAt( 0, vertexBuf, 0, Context3DVertexBufferFormat.FLOAT_3 );
+			m_context3d.setVertexBufferAt( 1, vertexBuf, 3, Context3DVertexBufferFormat.FLOAT_3 );
+			
+			//create the index buffer
+			m_indexBuf = m_context3d.createIndexBuffer( 6 );
+			m_indexBuf.uploadFromVector( Vector.<uint>([0, 1, 2, 0, 2, 3]), 0, 6 );
 			
 			this.addEventListener( Event.ENTER_FRAME, _onEnterFrame );
 		}
@@ -60,7 +78,7 @@ package
 		{
 			m_context3d.clear( 0, 0, 0 );
 			
-			//[unfinished]
+			m_context3d.drawTriangles( m_indexBuf, 0, 2 );
 			
 			m_context3d.present();
 		}
