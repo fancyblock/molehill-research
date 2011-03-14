@@ -39,7 +39,7 @@
     <option staticLinkRSL="True" />
     <option additional="-target-player=13.0.0" />
     <option compilerConstants="" />
-    <option customSDK="" />
+    <option customSDK="E:\Molehill\HeroSDK" />
   </build>
   <!-- SWC Include Libraries -->
   <includeLibraries>
@@ -80,6 +80,6 @@
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="False" />
-    <option testMovie="Default" />
+    <option testMovie="NewTab" />
   </options>
 </project>
