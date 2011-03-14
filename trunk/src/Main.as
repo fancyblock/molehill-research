@@ -4,6 +4,7 @@ package
 	import flash.display.Stage3D;
 	import flash.display.StageScaleMode;
 	import flash.display3D.Context3D;
+	import flash.display3D.Context3DProgramType;
 	import flash.display3D.Context3DVertexBufferFormat;
 	import flash.display3D.IndexBuffer3D;
 	import flash.display3D.VertexBuffer3D;
@@ -72,7 +73,7 @@ package
 			m_indexBuf.uploadFromVector( Vector.<uint>([0, 1, 2, 0, 2, 3]), 0, 6 );
 			
 			//set the matrix
-			
+//			m_context3d.setProgramConstantsFromMatrix( Context3DProgramType.VERTEX, 0, 
 			
 			this.addEventListener( Event.ENTER_FRAME, _onEnterFrame );
 		}
