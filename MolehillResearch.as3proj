@@ -39,7 +39,7 @@
     <option staticLinkRSL="True" />
     <option additional="-target-player=13.0.0" />
     <option compilerConstants="" />
-    <option customSDK="E:\Molehill\HeroSDK" />
+    <option customSDK="G:\Molehill\Hero_SDK" />
   </build>
   <!-- SWC Include Libraries -->
   <includeLibraries>
