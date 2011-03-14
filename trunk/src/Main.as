@@ -11,6 +11,7 @@ package
 	import flash.geom.Rectangle;
 	import ShaderLib.BaseShader;
 	import ShaderLib.Simple2DShader;
+	import ShaderLib.Solid3DShader;
 	
 	/**
 	 * ...
@@ -57,7 +58,7 @@ package
 			m_context3d.configureBackBuffer( 480, 320, 2 );
 			
 			//set the shader
-			var shader:BaseShader = new Simple2DShader( m_context3d );
+			var shader:BaseShader = new Solid3DShader( m_context3d );
 			m_context3d.setProgram( shader.SHADERS );
 			
 			//set the vertex buffer
@@ -69,6 +70,9 @@ package
 			//create the index buffer
 			m_indexBuf = m_context3d.createIndexBuffer( 6 );
 			m_indexBuf.uploadFromVector( Vector.<uint>([0, 1, 2, 0, 2, 3]), 0, 6 );
+			
+			//set the matrix
+			
 			
 			this.addEventListener( Event.ENTER_FRAME, _onEnterFrame );
 		}
