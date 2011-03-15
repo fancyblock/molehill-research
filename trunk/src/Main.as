@@ -4,14 +4,19 @@ package
 	import flash.display.Stage3D;
 	import flash.display.StageScaleMode;
 	import flash.display3D.Context3D;
+	import flash.display3D.Context3DCompareMode;
 	import flash.display3D.Context3DProgramType;
+	import flash.display3D.Context3DRenderMode;
+	import flash.display3D.Context3DTriangleFace;
 	import flash.display3D.Context3DVertexBufferFormat;
 	import flash.display3D.IndexBuffer3D;
 	import flash.display3D.VertexBuffer3D;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
+	import flash.geom.Vector3D;
+	import MolehillUtility.Interface.IBase3DTrans;
+	import MolehillUtility.Standard3DTrans;
 	import ShaderLib.BaseShader;
-	import ShaderLib.Simple2DShader;
 	import ShaderLib.Solid3DShader;
 	
 	/**
@@ -27,6 +32,7 @@ package
 		
 		private var m_context3d:Context3D = null;
 		private var m_indexBuf:IndexBuffer3D = null;
+		private var m_trans:IBase3DTrans = null;
 		
 		//------------------------------ public function -----------------------------------
 		
@@ -57,6 +63,7 @@ package
 			m_context3d = stage3d.context3D;
 			
 			m_context3d.configureBackBuffer( 480, 320, 2 );
+			m_context3d.setCulling( Context3DTriangleFace.BACK );
 			
 			//set the shader
 			var shader:BaseShader = new Solid3DShader( m_context3d );
@@ -72,8 +79,12 @@ package
 			m_indexBuf = m_context3d.createIndexBuffer( 6 );
 			m_indexBuf.uploadFromVector( Vector.<uint>([0, 1, 2, 0, 2, 3]), 0, 6 );
 			
-			//set the matrix
-//			m_context3d.setProgramConstantsFromMatrix( Context3DProgramType.VERTEX, 0, 
+			//set the transform class
+			m_trans = new Standard3DTrans();
+			m_trans.SetPerspective( 90, 480.0 / 320.0 );
+			m_trans.CameraIdentity();
+			m_trans.CAMERA_MATRIX.appendTranslation( 0, 0, -3 );
+			m_trans.WorldIdentity();
 			
 			this.addEventListener( Event.ENTER_FRAME, _onEnterFrame );
 		}
@@ -82,6 +93,10 @@ package
 		private function _onEnterFrame( evt:Event ):void
 		{
 			m_context3d.clear( 0, 0, 0 );
+			
+			m_trans.WORLD_MATRIX.appendRotation( 1, new Vector3D( 0, 1, 0 ) );
+			//set the matrix
+			m_context3d.setProgramConstantsFromMatrix( Context3DProgramType.VERTEX, 0, m_trans.GetTransMatrix(), true );
 			
 			m_context3d.drawTriangles( m_indexBuf, 0, 2 );
 			

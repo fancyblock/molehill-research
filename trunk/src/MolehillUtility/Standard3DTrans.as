@@ -39,7 +39,6 @@ package MolehillUtility
 			transMatrix.invert();
 			
 			transMatrix.prepend( m_worldMatrix );
-			transMatrix.append( camMatrix );
 			transMatrix.append( m_projectMatrix );
 			
 			return transMatrix;
@@ -49,10 +48,18 @@ package MolehillUtility
 		{
 			var d:Number = 1 / ( Math.tan( fovy * 0.5 ) );
 			
-			//[unfinished]
+			var factorX:Number = d;
+			var factorY:Number = - d * aspect;
+			
+			m_projectMatrix = new Matrix3D( Vector.<Number>([
+																factorX, 0, 0, 0,
+																0, factorY, 0, 0,
+																0, 0, 1, 1,
+																0, 0, 0, 1
+															]) );
 		}
 		
-		public function LookAt(org:Vector3D, dest:Vector3D, up:Vector3D) 
+		public function LookAt(org:Vector3D, dest:Vector3D, up:Vector3D):void
 		{
 			//[unfinished]
 		}

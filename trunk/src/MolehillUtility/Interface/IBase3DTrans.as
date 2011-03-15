@@ -13,7 +13,7 @@ package MolehillUtility.Interface
 		
 		function SetPerspective( fovy:Number, aspect:Number ):void;
 		
-		function LookAt( org:Vector3D, dest:Vector3D, up:Vector3D );
+		function LookAt( org:Vector3D, dest:Vector3D, up:Vector3D ):void;
 		
 		function get WORLD_MATRIX():Matrix3D;
 		
