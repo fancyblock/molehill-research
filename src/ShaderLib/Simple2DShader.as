@@ -6,6 +6,8 @@ package ShaderLib
 	/**
 	 * ...
 	 * @author Hejiabin
+	 * @desc	va0 - position
+	 * 			va1 - color
 	 */
 	public class Simple2DShader extends BaseShader 
 	{

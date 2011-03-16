@@ -6,6 +6,12 @@ package ShaderLib
 	/**
 	 * ...
 	 * @author Hejiabin
+	 * @desc	va0 - position
+	 * 			va1 - color
+	 * 			va2 - normal
+	 * 			vc0 - position transform matrix
+	 * 			vc4 - normal transform matrix
+	 *			vc8 - direction of the light
 	 */
 	public class Solid3DShader extends BaseShader 
 	{
@@ -30,7 +36,11 @@ package ShaderLib
 		{
 			var vertexShader:Array = [
 										"m44 op,va0,vc0",
-										"mov v0,va1"
+										"m44 vt4,va2,vc4",
+										"neg vt1,vc8",
+										"dp3 vt2.x,vt4,vt1",
+										"mul vt3,vt2.x,va1",
+										"mov v0,vt3"
 									];
 			var pixelShader:Array = [
 										"mov oc,v0"

@@ -11,6 +11,10 @@ package MolehillUtility.Interface
 	{
 		function GetTransMatrix():Matrix3D;
 		
+		function GetModelViewMatrix():Matrix3D;
+		
+		function GetLightMatrix():Matrix3D;
+		
 		function SetPerspective( fovy:Number, aspect:Number ):void;
 		
 		function LookAt( org:Vector3D, dest:Vector3D, up:Vector3D ):void;
