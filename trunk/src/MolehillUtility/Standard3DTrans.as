@@ -13,6 +13,8 @@ package MolehillUtility
 	{
 		//------------------------------ static member -------------------------------------
 		
+		static private var CLEAN_TRANS_VEC:Vector3D = new Vector3D( 0, 0, 0, 1 );
+		
 		//------------------------------ private member ------------------------------------
 		
 		private var m_worldMatrix:Matrix3D = null;
@@ -44,12 +46,32 @@ package MolehillUtility
 			return transMatrix;
 		}
 		
+		public function GetModelViewMatrix():Matrix3D
+		{
+			var transMatrix:Matrix3D = m_cameraMatrix.clone();
+			transMatrix.invert();
+			
+			transMatrix.prepend( m_worldMatrix );
+			
+			return transMatrix;
+		}
+		
+		public function GetLightMatrix():Matrix3D
+		{
+			var transMatrix:Matrix3D = GetModelViewMatrix();
+			
+			//take off the translation factor
+			transMatrix.copyRowFrom( 3, CLEAN_TRANS_VEC );
+			
+			return transMatrix;
+		}
+		
 		public function SetPerspective(fovy:Number, aspect:Number):void 
 		{
 			var d:Number = 1 / ( Math.tan( fovy * 0.5 ) );
 			
 			var factorX:Number = d;
-			var factorY:Number = - d * aspect;
+			var factorY:Number = d * aspect;
 			
 			m_projectMatrix = new Matrix3D( Vector.<Number>([
 																factorX, 0, 0, 0,
