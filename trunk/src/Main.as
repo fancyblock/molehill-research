@@ -16,10 +16,7 @@ package
 	import flash.geom.Vector3D;
 	import MolehillUtility.Interface.IBase3DTrans;
 	import MolehillUtility.Standard3DTrans;
-	import ShaderLib.BaseShader;
-	import ShaderLib.Simple2DShader;
-	import ShaderLib.Simple3DShader;
-	import ShaderLib.Solid3DShader;
+	import OpenGL.GLContext;
 	
 	/**
 	 * ...
@@ -36,6 +33,7 @@ package
 		//------------------------------ private member ------------------------------------
 		
 		private var m_context3d:Context3D = null;
+		private var m_glContext:GLContext = null;
 		private var m_indexBuf:IndexBuffer3D = null;
 		private var m_trans:IBase3DTrans = null;
 		
@@ -69,11 +67,7 @@ package
 			var stage3d:Stage3D = evt.target as Stage3D;
 			m_context3d = stage3d.context3D;
 			
-			m_context3d.configureBackBuffer( 480, 320, 2 );
-			
-			//set the shader
-			var shader:BaseShader = new Simple3DShader( m_context3d );
-			m_context3d.setProgram( shader.SHADERS );
+			m_glContext = new GLContext( m_context3d, 480, 320 );
 			
 			//set the vertex buffer
 			var vertexBuf:VertexBuffer3D = m_context3d.createVertexBuffer( 4, 11 );
