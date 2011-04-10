@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BinType</key>
+	<string>32</string>
+	<key>BuildDate</key>
+	<string>2009/08/09-18:32:30</string>
+	<key>BuildID</key>
+	<string>4341</string>
+	<key>BuildVersion</key>
+	<string>1.398628</string>
+	<key>CFBundleGetInfoString</key>
+	<string>AdobeACE 2.16.11.4341, © 1993-2009 Adobe Systems Incorporated.</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.adobe.ACE</string>
+	<key>CFBundleName</key>
+	<string>AdobeACE</string>
+	<key>CFBundlePackageType</key>
+	<string>FMWK</string>
+	<key>CFBundleShortVersionString</key>
+	<string>AdobeACE 2.16.11.4341</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>2.16.11.4341</string>
+	<key>Configuration</key>
+	<string>ACE Release</string>
+</dict>
+</plist>

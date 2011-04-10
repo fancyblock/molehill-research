@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- ****************************************************************************
+*
+* ADOBE SYSTEMS INCORPORATED
+* Copyright (C) 2011 Adobe Systems Incorporated
+* All Rights Reserved.
+*
+* NOTICE:  Adobe permits you to use, modify, and distribute this file in 
+* accordance with the terms of the Adobe license agreement accompanying it.  
+* If you have received this file from a source other than Adobe, then your 
+* use, modification, or distribution of it requires the prior written 
+* permission of Adobe.
+*
+**************************************************************************** -->
+
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns="*"
+
+	frameRate="60"
+	width="1024"
+	height="640"
+	backgroundColor="0x333333" 
+    skinClass="TransparentApplicationSkin"
+    applicationComplete="applicationCompleteHandler( event )"
+	>
+	<fx:Script>
+		<![CDATA[
+            // ======================================================================
+            //	Imports
+            // ----------------------------------------------------------------------
+            import flash.display.*;
+            import flash.display3D.*;
+            import flash.events.*;
+
+            import spark.core.*;
+			import mx.controls.sliderClasses.Slider;
+			import mx.events.SliderEvent;
+				
+            // ======================================================================
+            //	Properties
+            // ----------------------------------------------------------------------
+            protected var app_ : CylinderSphere2;
+
+            // ======================================================================
+            //	Methods
+            // ----------------------------------------------------------------------
+            protected function applicationCompleteHandler( event:Event ):void
+            {
+                stage.scaleMode = StageScaleMode.NO_SCALE;
+                stage.align = StageAlign.TOP_LEFT;
+                stage.addEventListener( Event.ENTER_FRAME, enterFrameHandler );
+
+                var stage3D:Stage3D = stage.stage3Ds[ 0 ];
+
+                stage3D.viewPort = new Rectangle( 0, 0, stage.stageWidth, stage.stageHeight );
+                stage3D.addEventListener( Event.CONTEXT3D_CREATE, stageNotificationHandler );
+                stage3D.requestContext3D( Context3DRenderMode.AUTO );
+            }
+
+            protected function stageNotificationHandler( event : Event ) : void
+            {
+                var stage3D:Stage3D = event.target as Stage3D;
+                
+                if ( !stage3D )
+                    return;
+                
+                app_ = new CylinderSphere2( stage, stage3D.context3D );
+            }
+
+            protected function enterFrameHandler( event:Event ):void
+            {
+                app_.render( getTimer() );
+            }
+
+			private function sliderChange(index:int, event:SliderEvent):void 
+			{
+				var currentSlider:Slider=Slider(event.currentTarget);
+				app_.setParam(index,currentSlider.value);
+			}
+		]]>
+	</fx:Script>
+	<s:HGroup>
+		<s:VGroup>
+			<mx:HSlider maximum="100" value="0" minimum="0" liveDragging="true" change="sliderChange(0, event);"/>	
+			<mx:HSlider maximum="100" value="50" minimum="0" liveDragging="true" change="sliderChange(1, event);"/>
+		</s:VGroup>
+	</s:HGroup>
+</s:Application>
+
+
