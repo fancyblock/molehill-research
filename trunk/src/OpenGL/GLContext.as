@@ -25,6 +25,8 @@ package OpenGL
 		
 		private var m_currentShadeMode:int = 0;
 		
+		private var m_clearColor:Array = null;
+		
 		//------------------------------ public function -----------------------------------
 		
 		/**
@@ -50,6 +52,9 @@ package OpenGL
 			
 			//initial the matrixs
 			m_matrixs = [ new Matrix3D(), new Matrix3D() ];
+			
+			//initial the clear color
+			m_clearColor = [ 0, 0, 0, 1 ];
 		}
 		
 		/**
@@ -72,6 +77,23 @@ package OpenGL
 		}
 		
 		/**
+		 * @desc	multiply	the current matrix by a translation	matrix
+		 * @param	x
+		 * @param	y
+		 * @param	z
+		 */
+		public function glTranslatef( x:Number, y:Number, z:Number ):void
+		{
+			var curMatrix:Matrix3D = m_matrixs[m_currentMatrix] as Matrix3D;
+			
+			var transMatrix:Matrix3D = new Matrix3D();
+			transMatrix.identity();
+			transMatrix.appendTranslation( x, y, z );
+			
+			curMatrix.append( transMatrix );
+		}
+		
+		/**
 		 * @desc	select	flat or	smooth shading
 		 * @param	mode
 		 */
@@ -89,7 +111,65 @@ package OpenGL
 		 */
 		public function glClearColor( red:Number, green:Number, blue:Number, alpha:Number ):void
 		{
+			m_clearColor[0] = red;
+			m_clearColor[1] = green;
+			m_clearColor[2] = blue;
+			m_clearColor[3] = alpha;
+		}
+		
+		/**
+		 * @desc	specify the clear value for the depth buffer
+		 * @param	depth
+		 */
+		public function glClearDepth( depth:Number ):void
+		{
+			//[unfinished]
+		}
+		
+		/**
+		 * @desc	enable server-side GL
+		 * @param	cap
+		 */
+		public function glEnable( cap:int ):void
+		{
+			//[unfinished]
+		}
+		
+		/**
+		 * @desc	disable server-side GL
+		 * @param	cap
+		 */
+		public function glDisable( cap:int ):void
+		{
+			//[unfinished]
+		}
+		
+		/**
+		 * @desc	clear buffers to preset values
+		 * @param	mask
+		 */
+		public function glClear( mask:uint ):void
+		{
+			//[unfinished]
 			
+			m_context3d.clear( m_clearColor[0], m_clearColor[1], m_clearColor[2], m_clearColor[3] );
+		}
+		
+		/**
+		 * @desc	delimit the vertices	of a primitive or a group	of like	primitives
+		 * @param	mode
+		 */
+		public function glBegin( mode:int ):void
+		{
+			//[unfinished]
+		}
+		
+		/**
+		 * @desc	delimit the vertices	of a primitive or a group	of like	primitives
+		 */
+		public function glEnd():void
+		{
+			//[unfinished]
 		}
 		
 		//----------------------------- glu functions -----------------------------------//
